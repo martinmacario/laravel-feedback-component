@@ -5,8 +5,11 @@ namespace Mydnic\Kustomer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+
 class KustomerServiceProvider extends ServiceProvider
 {
+    use PublishesMigrations;
+
     /**
      * Bootstrap any package services.
      *
@@ -19,7 +22,7 @@ class KustomerServiceProvider extends ServiceProvider
         }
 
         $this->registerRoutes();
-        $this->registerMigrations();
+        $this->registerMigrations(__DIR__ . '/../database/migrations');
         $this->registerTranslations();
         $this->registerViews();
     }
@@ -55,16 +58,6 @@ class KustomerServiceProvider extends ServiceProvider
             [__DIR__ . '/../resources/views' => resource_path('views/vendor/kustomer')],
             'kustomer-views'
         );
-    }
-
-    /**
-     * Register the package's migrations
-     *
-     * @return void
-     */
-    protected function registerMigrations()
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     /**
